@@ -1,13 +1,21 @@
 package com.kevin.coursjavaandroid;
 
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final static int ALERT_DIALOG = 1;
     private final static int TIME_PICKER = 2;
     private final static int DATE_PIKER = 3;
+    private static final int MENU_SERVICE_EX = 4;
+
+    private static final int REQ_CODE_TO_SERV = 1;
+
     private static final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
@@ -57,8 +69,107 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btValider.setOnClickListener(this);
         btAnnuler.setOnClickListener(this);
 
+
+
+
+
       //  Intent intent = new Intent(this, SecondActivity.class);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        menu.add(0,ALERT_DIALOG,0,"AlertDialog");
+        menu.add(0,TIME_PICKER,0,"timePicker");
+        menu.add(0,DATE_PIKER,0,"datePicker");
+        menu.add(0, MENU_SERVICE_EX, 0, "Service Ex");
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case ALERT_DIALOG:
+                //Préparation de la fenêtre
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+//Message
+                alertDialogBuilder.setMessage("Mon message");
+//titre
+                alertDialogBuilder.setTitle("Mon titre");
+//bouton ok
+                alertDialogBuilder.setPositiveButton("ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+//Affiche un toast apres le click sur le bouton ok
+                                Toast.makeText(MainActivity.this, "Click sur ok",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+//Icone
+                alertDialogBuilder.setIcon(R.mipmap.ic_launcher);
+//Afficher la fenêtre
+                alertDialogBuilder.show();
+                break;
+
+            case TIME_PICKER:
+                TimePickerDialog timePickerDialog = new TimePickerDialog(this, this, 14, 33, true);
+                timePickerDialog.show();
+                break;
+
+            case DATE_PIKER:
+                //Gestion de la date
+                Calendar calendar = Calendar.getInstance();
+//Création de la fenêtre
+//Pour le callback -> Alt+entree -> implémente méthode -> Génère la méthode onTimeSet
+                DatePickerDialog datePickerDialog = new DatePickerDialog(this, this,
+                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+//Afficher la fenêtre
+                datePickerDialog.show();
+                break;
+
+            case  MENU_SERVICE_EX:
+                //Est ce que j'ai la permission
+                if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    //oui je vais sur l'écran
+                    startActivity(new Intent(this, ServiceExActivity.class));
+                }
+                else {
+                    //Demande la permission
+                    ActivityCompat.requestPermissions(this, new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    }, REQ_CODE_TO_SERV );
+                }
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQ_CODE_TO_SERV) {
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                //oui je vais sur l'écran
+                Toast.makeText(this, " autoriser", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ServiceExActivity.class));
+            }
+            else {
+                //Demande la permission
+                Toast.makeText(this, " permission", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /* ---------------------------------
+   //Onclick
+   // -------------------------------- */
 
     @Override
     public void onClick(View v) {
@@ -84,64 +195,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        menu.add(0,ALERT_DIALOG,0,"AlertDialog");
-        menu.add(0,TIME_PICKER,0,"timePicker");
-        menu.add(0,DATE_PIKER,0,"datePicker");
 
 
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-switch (item.getItemId()){
-    
-    case ALERT_DIALOG:
-        //Préparation de la fenêtre
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-//Message
-        alertDialogBuilder.setMessage("Mon message");
-//titre
-        alertDialogBuilder.setTitle("Mon titre");
-//bouton ok
-        alertDialogBuilder.setPositiveButton("ok",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-//Affiche un toast apres le click sur le bouton ok
-                        Toast.makeText(MainActivity.this, "Click sur ok",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-//Icone
-        alertDialogBuilder.setIcon(R.mipmap.ic_launcher);
-//Afficher la fenêtre
-        alertDialogBuilder.show();
-        break;
-
-    case TIME_PICKER:
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, this, 14, 33, true);
-        timePickerDialog.show();
-        break;
-
-    case DATE_PIKER:
-        //Gestion de la date
-        Calendar calendar = Calendar.getInstance();
-//Création de la fenêtre
-//Pour le callback -> Alt+entree -> implémente méthode -> Génère la méthode onTimeSet
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, this,
-                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
-//Afficher la fenêtre
-        datePickerDialog.show();
-}
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    /* ---------------------------------
+   //   CallBack
+   // -------------------------------- */
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -157,4 +216,6 @@ switch (item.getItemId()){
 
         Toast.makeText(this, dateString, Toast.LENGTH_SHORT).show();
     }
+
+
 }
