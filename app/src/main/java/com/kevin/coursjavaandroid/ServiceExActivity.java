@@ -23,7 +23,7 @@ public class ServiceExActivity extends AppCompatActivity {
             if(view.getId() == R.id.btStart) {
                 startService(new Intent(this, MyService.class));
             }
-            else if(view.getId() == R.id.btStart){
+            else if(view.getId() == R.id.btStop){
                 stopService(new Intent(this, MyService.class));
             }
         }

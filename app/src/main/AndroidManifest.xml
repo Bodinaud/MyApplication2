@@ -25,9 +25,8 @@
         <activity android:name=".ServiceExActivity" />
 
         <service
-            android:name=".GPSService"
-            android:enabled="true"
-            android:exported="true"></service>
+            android:name=".services.MyService"
+           ></service>
     </application>
 
 </manifest>
