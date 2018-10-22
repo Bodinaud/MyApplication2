@@ -4,12 +4,11 @@ package com.kevin.coursjavaandroid;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -45,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final static int TIME_PICKER = 2;
     private final static int DATE_PIKER = 3;
     private static final int MENU_SERVICE_EX = 4;
+    private static final int MENU_NOTIF_EX = 5;
 
     private static final int REQ_CODE_TO_SERV = 1;
 
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menu.add(0,TIME_PICKER,0,"timePicker");
         menu.add(0,DATE_PIKER,0,"datePicker");
         menu.add(0, MENU_SERVICE_EX, 0, "Service Ex");
+        menu.add(0, MENU_NOTIF_EX, 0, "Notif Ex");
 
 
         return super.onCreateOptionsMenu(menu);
@@ -137,6 +138,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     //oui je vais sur l'écran
                     startActivity(new Intent(this, ServiceExActivity.class));
+                }
+                else {
+                    //Demande la permission
+                    ActivityCompat.requestPermissions(this, new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    }, REQ_CODE_TO_SERV );
+                }
+                break;
+
+            case MENU_NOTIF_EX:
+                //Est ce que j'ai la permission
+                if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    //oui je vais sur l'écran
+                    startActivity(new Intent(this, NotificationExActivity.class));
                 }
                 else {
                     //Demande la permission

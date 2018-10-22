@@ -15,6 +15,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kevin.coursjavaandroid.MyApplication;
+
 public class MyService extends Service implements LocationListener {
 
     private LocationManager locationMgr;
@@ -61,6 +63,7 @@ public class MyService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         Toast.makeText(this, location.toString(), Toast.LENGTH_SHORT).show();
+        MyApplication.getBus().post(location);
     }
 
     @Override
