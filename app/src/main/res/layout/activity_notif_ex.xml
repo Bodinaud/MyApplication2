@@ -10,14 +10,14 @@
     tools:context=".ServiceExActivity">
 
     <Button
-        android:id="@+id/btStart"
+        android:id="@+id/btNow"
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Now"/>
 
     <Button
-        android:id="@+id/btStop"
+        android:id="@+id/bt30s"
         android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

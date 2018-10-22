@@ -4,6 +4,7 @@
     package="com.kevin.coursjavaandroid">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".MyApplication"
@@ -22,13 +23,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".broadcast.MyReceiver">
+
+
+        <intent-filter>
+
+        <action android:name="android.intent.action.LOCALE_CHANGED"/>
+
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+
+    </intent-filter>
+
+    </receiver>
         <activity android:name=".Main2Activity" />
         <activity android:name=".ServiceExActivity" />
-        <activity android:name=".NotificationExActivity" />
+        <activity android:name=".NotifExActivity" />
 
+
+        <service android:name=".services.MyService"> </service>
+        <receiver android:name=".broadcast.NotificationPublisherBR"> </receiver>
+
+        <service android:name=".services.MyBgService" android:exported="true" android:enabled="true"> </service>
         <service
             android:name=".services.MyService"
            ></service>
+        <activity android:name=".list.RVExActivity">
+        </activity>
 
     </application>
 

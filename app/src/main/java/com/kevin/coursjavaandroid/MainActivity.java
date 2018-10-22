@@ -14,7 +14,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +25,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.kevin.coursjavaandroid.list.RVExActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final static int DATE_PIKER = 3;
     private static final int MENU_SERVICE_EX = 4;
     private static final int MENU_NOTIF_EX = 5;
+    private static final int MENU_RV_EX = 6;
 
     private static final int REQ_CODE_TO_SERV = 1;
 
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menu.add(0,DATE_PIKER,0,"datePicker");
         menu.add(0, MENU_SERVICE_EX, 0, "Service Ex");
         menu.add(0, MENU_NOTIF_EX, 0, "Notif Ex");
-
+        menu.add(0, MENU_RV_EX, 0, "RecyclerView Ex");
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -151,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Est ce que j'ai la permission
                 if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     //oui je vais sur l'écran
-                    startActivity(new Intent(this, NotificationExActivity.class));
+                    startActivity(new Intent(this, NotifExActivity.class));
                 }
                 else {
                     //Demande la permission
@@ -159,6 +161,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Manifest.permission.ACCESS_FINE_LOCATION
                     }, REQ_CODE_TO_SERV );
                 }
+
+            case    MENU_RV_EX:
+                startActivity(new Intent(this, RVExActivity.class));
+
                 break;
 
         }
