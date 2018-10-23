@@ -1,5 +1,5 @@
+package com.kevin.coursjavaandroid.transverse;
 
-        package anthony.com.cdi181.transverse;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -13,11 +13,12 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
-import anthony.com.cdi181.MainActivity;
-import anthony.com.cdi181.R;
-import anthony.com.cdi181.broadcast.NotificationPublisherBR;
+import com.kevin.coursjavaandroid.MainActivity;
+import com.kevin.coursjavaandroid.R;
+import com.kevin.coursjavaandroid.broadcast.NotificationPublisherBR;
 
 public class NotificationUtils {
+
 
     private static final String CHANNEL_ID = "MonSuperChannel";
     private static final CharSequence CHANNEL_NAME = "Commandes";
@@ -105,5 +106,5 @@ public class NotificationUtils {
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_ALL);//Son + afficher la notification
         return notificationBuilder.build();
-
-
+    }
+}

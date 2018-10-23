@@ -1,5 +1,4 @@
-
-        package anthony.com.cdi181.model.bean;
+package com.kevin.coursjavaandroid.model.bean;
 
 public class EleveBean {
 

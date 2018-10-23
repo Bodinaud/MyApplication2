@@ -23,7 +23,7 @@ public class NotifExActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         if (view.getId() == R.id.btNow) {
-            NotificationUtils.createInstantNotification(this, "Un message", 29);
+            NotificationUtils.createInstantNotification(this, "Un message");
         }
         else if (view.getId() == R.id.bt30s) {
             NotificationUtils.scheduleNotification(this, "Un message à  retardement", 5000);

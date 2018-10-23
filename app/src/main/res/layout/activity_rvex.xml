@@ -8,7 +8,7 @@
     tools:context=".list.RVExActivity">
 
     <Button
-        android:id="@+id/bt"
+        android:id="@+id/btAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"

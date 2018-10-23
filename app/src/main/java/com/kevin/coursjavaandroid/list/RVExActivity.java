@@ -1,22 +1,25 @@
 package com.kevin.coursjavaandroid.list;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import com.kevin.coursjavaandroid.R;
 import com.kevin.coursjavaandroid.model.bean.EleveBean;
 
-import java.util.ArrayList;
 
-public class RVExActivity extends AppCompatActivity {
+public class RVExActivity extends AppCompatActivity implements EleveAdapter.OnEleveAdapterListener {
 
     //Composants graphiques
-    private LinearLayout ll;
+    private RecyclerView rv;
+
+    //Outils
+    private EleveAdapter eleveAdapter;
 
     //Data
     private ArrayList<EleveBean> maList;
@@ -25,50 +28,43 @@ public class RVExActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rvex);
-        ll = findViewById(R.id.ll);
-
+        rv = findViewById(R.id.rv);
         maList = new ArrayList<>();
+        eleveAdapter = new EleveAdapter(maList);
+        eleveAdapter.setOnEleveAdapterListener(this);
+
+        rv.setAdapter(eleveAdapter);
+        rv.setLayoutManager(new GridLayoutManager(this, 1));
     }
 
     public void onClick(View view) {
 
-        if (view.getId() == R.id.bt) {
-            maList.add(new EleveBean("Loup" + maList.size(), "Ben"));
-            refreshScreen();
+        if (view.getId() == R.id.btAdd) {
+            maList.add(0, new EleveBean("toto" + maList.size(), "toto"));
+            eleveAdapter.notifyItemInserted(0);
+
+            //Remettre le scroll au début
+            rv.scrollToPosition(0);
         }
         else if (view.getId() == R.id.btAddLot) {
             for (int i = 0; i < 100; i++) {
-                maList.add(new EleveBean("Renard" + maList.size(), "Chris"));
+                maList.add(new EleveBean("toto" + maList.size(), "toto"));
             }
-            refreshScreen();
+            eleveAdapter.notifyDataSetChanged();
         }
     }
 
-    private void refreshScreen() {
-        ll.removeAllViews();
+    @Override
+    public void onEleveClic(EleveBean eleveBean) {
 
-        for (EleveBean eleveBean : maList) {
-            //Composants graphiques
-            View v = LayoutInflater.from(this).inflate(R.layout.row_eleve, null);
-            ViewHolder viewHolder = new ViewHolder(v);
-            ll.addView(v);
-
-            //remplir
-            viewHolder.tvNom.setText(eleveBean.getNom());
-            viewHolder.tvPrenom.setText(eleveBean.getPrenom());
-        }
+        int index = maList.indexOf(eleveBean);
+        maList.remove(eleveBean);
+        maList.add(0, eleveBean);
+        eleveAdapter.notifyItemMoved(index, 0);
     }
 
-    public class ViewHolder {
+    @Override
+    public void onEleveLongClick(EleveBean eleveBean) {
 
-        TextView tvNom;
-        TextView tvPrenom;
-        ImageView iv;
-
-        public ViewHolder(View v) {
-            tvNom = v.findViewById(R.id.tvNom);
-            tvPrenom = v.findViewById(R.id.tvPrenom);
-            iv = v.findViewById(R.id.iv);
-        }
     }
 }

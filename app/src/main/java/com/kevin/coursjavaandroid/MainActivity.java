@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Manifest.permission.ACCESS_FINE_LOCATION
                     }, REQ_CODE_TO_SERV );
                 }
+                break;
 
             case    MENU_RV_EX:
                 startActivity(new Intent(this, RVExActivity.class));
@@ -212,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             iv.setImageResource(R.mipmap.ic_delete_forever);
         }
         else if (btNext == v){
-            startActivity(new Intent(this, SecondActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
 
