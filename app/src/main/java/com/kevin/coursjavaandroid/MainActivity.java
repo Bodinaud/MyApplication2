@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -47,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int MENU_SERVICE_EX = 4;
     private static final int MENU_NOTIF_EX = 5;
     private static final int MENU_RV_EX = 6;
+    private static final int MENU_WEB_SERVICE = 7;
 
     private static final int REQ_CODE_TO_SERV = 1;
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menu.add(0, MENU_SERVICE_EX, 0, "Service Ex");
         menu.add(0, MENU_NOTIF_EX, 0, "Notif Ex");
         menu.add(0, MENU_RV_EX, 0, "RecyclerView Ex");
+        menu.add(0, MENU_WEB_SERVICE, 0, "Web Service");
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -165,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case    MENU_RV_EX:
                 startActivity(new Intent(this, RVExActivity.class));
+
+                break;
+
+            case MENU_WEB_SERVICE:
+                startActivity(new Intent(this, CodePostalActivity.class));
 
                 break;
 

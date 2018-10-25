@@ -1,22 +1,28 @@
 package com.kevin.coursjavaandroid.list;
 
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import com.kevin.coursjavaandroid.R;
+import com.kevin.coursjavaandroid.model.WsUtils;
 import com.kevin.coursjavaandroid.model.bean.EleveBean;
+
 
 
 public class RVExActivity extends AppCompatActivity implements EleveAdapter.OnEleveAdapterListener {
 
     //Composants graphiques
     private RecyclerView rv;
+    private ProgressDialog pd;
 
     //Outils
     private EleveAdapter eleveAdapter;
@@ -37,6 +43,15 @@ public class RVExActivity extends AppCompatActivity implements EleveAdapter.OnEl
         rv.setLayoutManager(new GridLayoutManager(this, 1));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (pd != null) {
+            pd.dismiss();
+            pd = null;
+        }
+    }
+
     public void onClick(View view) {
 
         if (view.getId() == R.id.btAdd) {
@@ -47,10 +62,7 @@ public class RVExActivity extends AppCompatActivity implements EleveAdapter.OnEl
             rv.scrollToPosition(0);
         }
         else if (view.getId() == R.id.btAddLot) {
-            for (int i = 0; i < 100; i++) {
-                maList.add(new EleveBean("toto" + maList.size(), "toto"));
-            }
-            eleveAdapter.notifyDataSetChanged();
+            new MonAt().execute();
         }
     }
 
@@ -65,6 +77,53 @@ public class RVExActivity extends AppCompatActivity implements EleveAdapter.OnEl
 
     @Override
     public void onEleveLongClick(EleveBean eleveBean) {
+        maList.remove(eleveBean);
+    }
 
+    public class MonAt extends AsyncTask {
+
+        private EleveBean resultat;
+        private Exception exception;
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            //Sur un 2eme thread -> pas de modif graphique
+            try {
+                resultat = WsUtils.loadEleveFromWeb();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                exception = e;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(RVExActivity.this, "", "Chargement en cours...");
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+
+            if (pd != null) {
+                pd.dismiss();
+                pd = null;
+            }
+
+            if (exception != null) {
+                //J'ai une erreur je l'indique
+                Toast.makeText(RVExActivity.this, "Une erreur est survenue : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                //j'ai un resultat, je l'ajoute
+                maList.add(0, resultat);
+                //et je previens l'adapter que les données ont changé.
+                eleveAdapter.notifyItemInserted(0);
+            }
+        }
     }
 }

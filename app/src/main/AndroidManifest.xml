@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApplication"
@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,36 +25,29 @@
         </activity>
 
         <receiver android:name=".broadcast.MyReceiver">
-
-
             <intent-filter>
-
-                <action android:name="android.intent.action.LOCALE_CHANGED"/>
-
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-
         </receiver>
 
         <activity android:name=".ServiceExActivity" />
 
-        <service
-            android:name=".services.MyService"
-            />
-
+        <service android:name=".services.MyService" />
 
         <activity android:name=".NotifExActivity" />
 
+        <service android:name=".services.MyService" />
 
-        <service android:name=".services.MyService"> </service>
-        <receiver android:name=".broadcast.NotificationPublisherBR"> </receiver>
+        <receiver android:name=".broadcast.NotificationPublisherBR" />
 
-        <service android:name=".services.MyBgService" android:exported="true" android:enabled="true"> </service>
+        <service
+            android:name=".services.MyBgService"
+            android:enabled="true"
+            android:exported="true" />
 
-        <activity android:name=".list.RVExActivity">
-        </activity>
-
+        <activity android:name=".list.RVExActivity" />
+        <activity android:name=".CodePostalActivity"></activity>
     </application>
 
 </manifest>
