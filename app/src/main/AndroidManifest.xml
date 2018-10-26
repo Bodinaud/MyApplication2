@@ -47,7 +47,7 @@
             android:exported="true" />
 
         <activity android:name=".list.RVExActivity" />
-        <activity android:name=".CodePostalActivity"></activity>
+        <activity android:name=".CodePostal.CodePostalActivity"></activity>
     </application>
 
 </manifest>

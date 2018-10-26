@@ -25,6 +25,7 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.kevin.coursjavaandroid.CodePostal.CodePostalActivity;
 import com.kevin.coursjavaandroid.list.RVExActivity;
 
 import java.text.SimpleDateFormat;
@@ -73,9 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
-
-      //  Intent intent = new Intent(this, SecondActivity.class);
+        //  Intent intent = new Intent(this, SecondActivity.class);
     }
 
     @Override

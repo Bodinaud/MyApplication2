@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.kevin.coursjavaandroid.CodePostalActivity">
+    tools:context="com.kevin.coursjavaandroid.CodePostal.CodePostalActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,11 +13,11 @@
         android:gravity="center">
 
         <EditText
-            android:id="@+id/textView2"
+            android:id="@+id/etcp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="TextView" />
+            android:text="Code Postale" />
 
         <Button
             android:id="@+id/btOk"
@@ -29,6 +29,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />

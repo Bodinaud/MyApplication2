@@ -17,7 +17,7 @@
 
 
         <TextView
-            android:id="@+id/codepostale"
+            android:id="@+id/tvcp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -25,7 +25,7 @@
             android:text="TextView"/>
 
         <TextView
-            android:id="@+id/Ville"
+            android:id="@+id/tvnom"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

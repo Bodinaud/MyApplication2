@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import com.kevin.coursjavaandroid.R;
-import com.kevin.coursjavaandroid.model.WsUtils;
+import com.kevin.coursjavaandroid.model.ws.WsUtils;
 import com.kevin.coursjavaandroid.model.bean.EleveBean;
 
 
@@ -89,7 +89,7 @@ public class RVExActivity extends AppCompatActivity implements EleveAdapter.OnEl
         protected Object doInBackground(Object[] objects) {
             //Sur un 2eme thread -> pas de modif graphique
             try {
-                resultat = WsUtils.loadEleveFromWeb();
+                resultat = WsUtils.getElevFromWen();
             }
             catch (Exception e) {
                 e.printStackTrace();
