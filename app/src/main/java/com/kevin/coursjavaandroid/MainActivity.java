@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int MENU_NOTIF_EX = 5;
     private static final int MENU_RV_EX = 6;
     private static final int MENU_WEB_SERVICE = 7;
+    private static final int MENU_VELO_CITY = 8;
 
     private static final int REQ_CODE_TO_SERV = 1;
 
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         menu.add(0, MENU_NOTIF_EX, 0, "Notif Ex");
         menu.add(0, MENU_RV_EX, 0, "RecyclerView Ex");
         menu.add(0, MENU_WEB_SERVICE, 0, "Web Service");
+        menu.add(0, MENU_VELO_CITY, 0, "Velo City");
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -172,6 +174,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, CodePostalActivity.class));
 
                 break;
+
+            case MENU_VELO_CITY:
+                startActivity(new Intent(this, MapsActivity.class));
+
+                break;
+
 
         }
 

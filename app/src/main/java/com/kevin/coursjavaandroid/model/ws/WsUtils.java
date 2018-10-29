@@ -24,6 +24,7 @@ public class WsUtils {
         return new EleveBean("tooto du web", "toto");
     }
 
+
     public static ArrayList<CityBean> getCitiesFromCp(String cp) throws Exception {
         //Url
         //Requete
